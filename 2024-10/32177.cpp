@@ -26,17 +26,15 @@ bool is_connected(int x1, int y1, int x2, int y2) { // 거리가 K 이하인가?
 int main() {
     scanf("%d %d %d", &N, &K, &T);
     scanf("%d %d %d", &pos[0][0], &pos[0][1], &V[0]);
-    for(int i = 1; i <= N; i++)
+    for(int i = 1; i <= N; i++) {
         scanf("%d %d %d %d", &pos[i][0], &pos[i][1], &V[i], &P[i]);
-    for(int i = 0; i <= N; i++) { // 그래프 모델링
-        for(int j = 0; j <= N; j++) {
-            if(i == j) // 자기 자신은 건너뜀
-                continue; 
-            if(is_connected(pos[i][0], pos[i][1], pos[j][0], pos[j][1]) && abs(V[i] - V[j]) <= T) 
-            // 거리가 K이하이고 버전 차이가 T이하인 경우는 연결됨
+        for(int j = 0; j < i; j++) { // 그래프 모델링
+             if(is_connected(pos[i][0], pos[i][1], pos[j][0], pos[j][1]) && abs(V[i] - V[j]) <= T) 
+             // 거리 K 이하이고 버전 차이 T이하인가??
                 graph[i][j] = graph[j][i] = 1;
         }
-    }
+    } 
+    // 원래 그래프 모델링 입력 다 받고 이중 for 돌려서 했는데 입력 받으면서 해도 처리 됨.
     queue<int> que;
     que.push(0);
     visited[0] = 1; // BFS 수행 전초 작업
